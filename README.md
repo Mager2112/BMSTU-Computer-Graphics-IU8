@@ -1,13 +1,14 @@
 # Задания по компьютерной графике
 
 ## Алгоритм Брезенхема
-![Алгоритм Брезенхема](https://github.com/Mager2112/BMSTU-Computer-Graphics-IU8/blob/main/Брезенхем%20линия.PNG)
+[1) Алгоритм Брезенхема](https://github.com/Mager2112/BMSTU-Computer-Graphics-IU8/tree/main/1%20Brezenham)
 
 ## Фильтр Собеля
 
-![Фильтр Собеля](https://github.com/Mager2112/BMSTU-Computer-Graphics-IU8/blob/main/Фильтр%20Собеля.PNG)
+[2) Фильтр Собеля](https://github.com/Mager2112/BMSTU-Computer-Graphics-IU8/tree/main/2%20Sobel)
 
 ## Отсечение отрезков Цируса-Бека
+[3) Отсечение отрезков](https://github.com/Mager2112/BMSTU-Computer-Graphics-IU8/tree/main/3%20Cyrus-Beck)
 
 ## Заполнение методом граничащих точек
 
