@@ -16,5 +16,5 @@
 ## Геометрические преобразования 2D и 3D
 
 ## Отсечение граней Роджерса
-
+[6) Z Буфер](https://github.com/Mager2112/BMSTU-Computer-Graphics-IU8/tree/main/6%20Z%20Bufer)
 ## Освещённость
