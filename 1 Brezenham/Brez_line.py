@@ -28,6 +28,6 @@ def draw_bresenham_circle(xc, yc, r):
         draw_circle(xc, yc, x, y)
         print(x, y)
 
-draw_bresenham_circle(0, 0, 10)
+draw_bresenham_circle(0, 0, 20)
 plt.axis('scaled')
 plt.show()
