@@ -1,12 +1,6 @@
 import PIL.ImageDraw as ID, PIL.Image as Image
 import numpy as np
 
-# Code Start from here
-# Requirement
-# pip install pillow
-
-# im will show the overlapped between lines
-# im1 will show the clipped line
 im = Image.new("RGB", (640, 480))
 im1 = Image.new("RGB", (640, 480))
 draw = ID.Draw(im)
