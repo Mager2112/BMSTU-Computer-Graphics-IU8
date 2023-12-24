@@ -1,93 +1,47 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import math
-from PIL import Image
 
-image = Image.new('RGB',(100,100))
+# Функция для рисования прямой линии с использованием алгоритма Брезенхема
+def draw_line(x1, y1, x2, y2, image):
+    dx = abs(x2 - x1)
+    dy = abs(y2 - y1)
+    steep = dy > dx
+    if steep:
+        x1, y1 = y1, x1
+        x2, y2 = y2, x2
+    if x1 > x2:
+        x1, x2 = x2, x1
+        y1, y2 = y2, y1
+    dx = abs(x2 - x1)
+    dy = abs(y2 - y1)
+    error = int(dx / 2)
+    y_step = 1 if y1 < y2 else -1
+    y = y1
+    for x in range(x1, x2 + 1):
+        coord = (y, x) if steep else (x, y)
+        image[coord] = 1
+        error -= dy
+        if error < 0:
+            y += y_step
+            error += dx
 
-def brezenham_alg(start_x, start_y, end_x, end_y):
-    if(start_x < end_x):
-        x = start_x
-        y = start_y
-        last_x = end_x
-        last_y = end_y
-    else:
-        x = end_x
-        y = end_y
-        last_x = start_x
-        last_y = start_y
+# Запрос размера изображения у пользователя
+width = 50
+height = 50
 
-    if(x==last_x):
-        y = min(start_y, end_y)
-        last_y = max(start_y, end_y)
+# Создаем изображение с заданными размерами
+image = np.zeros((height, width), dtype=np.uint8)
 
-    dx = last_x - x
-    dy = last_y - y
+# Запрос координат начальной и конечной точек у пользователя
+x1 = 10
+y1 = 10
+x2 = 30
+y2 = 20
 
-    if dx == 0:
-        while y <= last_y:
-            y+=1
-        return
+# Вызываем функцию для рисования линии
+draw_line(x1, y1, x2, y2, image)
 
-    tan = dy/dx
-
-    incrN  = -2*dx
-    incrNE = 2*(dy-dx)
-    incrE  = 2*dy
-    incrSE = 2*(dy+dx)
-    incrS  = 2*dx
-
-    d,low_incre, high_incre = 0,0,0
-    """
-    dy>1 : N - NE (y)
-    0<dy<1 : NE - E (x)
-    0>dy>-1 : E - SE (x)
-    dy<-1 : SE - S (y)
-    """
-
-    if tan >1:
-        high_incre = incrN
-        low_incre  = incrNE
-        d = dy-2*dx
-
-    elif tan >0:
-        high_incre = incrNE
-        low_incre  = incrE
-        d = 2*dy-dx
-
-    elif tan >-1:
-        high_incre = incrE
-        low_incre  = incrSE
-        d = 2*dy+dx
-
-    else:
-        high_incre = incrSE
-        low_incre  = incrS
-        d = dy+2*dx
-
-    while x != last_x or (y != last_y if (tan>1 or tan<-1) else False):
-        if d<= 0 :
-            d+= low_incre
-            if(tan>1):
-                x+= 1
-                y+= 1
-                image.putpixel((x,y),(0,0,255)) #синий
-            elif(tan<-1):
-                y-=1
-                image.putpixel((x,y),(255,160,122)) #светло оранжевый
-            else:
-                y+= 0 if tan>0 else -1
-                x+= 1
-                image.putpixel((x,y),(255, 165, 0)) #оранжевый
-        else :
-            d+= high_incre
-            if(tan>1):
-                y+=1
-                image.putpixel((x,y),(128, 0, 128)) #фиолетовый
-            elif(tan<-1):
-                y-=1
-                x+=1
-                image.putpixel((x,y),(255,255,255)) #белый
-    plt.imshow(image)
-#фиолетово-синий
-brezenham_alg(5,-50,30,40)
+# Отображаем изображение
+plt.imshow(image, cmap='gray')
+plt.axis('off')
+plt.show()
