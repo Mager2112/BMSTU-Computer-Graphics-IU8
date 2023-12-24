@@ -1,15 +1,37 @@
+# Программа сделана в CoLab
+import requests
+from PIL import Image
+import io
 import numpy as np
+from scipy import ndimage
 import matplotlib.pyplot as plt
 
-# Example of a grayscale image patch
-A = np.array([[119, 80, 122], [177, 154, 212], [89, 25, 152]])
-plt.imshow(A, cmap=plt.get_cmap('gray'))
+image_url = "https://mykaleidoscope.ru/x/uploads/posts/2022-10/1666364386_1-mykaleidoscope-ru-p-natsionalnii-park-lenskie-stolbi-vkontakte-1.jpg"
 
-# Next we define the matrices associated with the Sobel filter
-Gx = np.array([[1.0, 0.0, -1.0], [2.0, 0.0, -2.0], [1.0, 0.0, -1.0]])
-Gy = np.array([[1.0, 2.0, 1.0], [0.0, 0.0, 0.0], [-1.0, -2.0, -1.0]])
+response = requests.get(image_url)
+image = Image.open(io.BytesIO(response.content)).convert('L')  # Конвертируем в черно-белое
 
-# The output of the kernel operation is given by the following
-GxA, GyA = np.sum(np.multiply(Gx, A)), np.sum(np.multiply(Gy, A))
-output_value = np.sqrt(GxA**2 + GyA**2)  # equal to the "hypotenuse" of the values in the x and y directions
-print("output pixel value =", output_value)
+image_np = np.array(image).astype('int32')
+
+sobel_h = ndimage.sobel(image_np, 0)  # горизонтальный градиент
+sobel_v = ndimage.sobel(image_np, 1)  # вертикальный градиент
+
+magnitude = np.sqrt(sobel_h**2 + sobel_v**2)
+magnitude *= 255.0 / np.max(magnitude) 
+
+fig, axs = plt.subplots(2, 2, figsize=(8, 8))
+
+plt.gray()
+
+axs[0, 0].imshow(image_np)
+axs[0, 1].imshow(sobel_h)
+axs[1, 0].imshow(sobel_v)
+axs[1, 1].imshow(magnitude)
+
+titles = ["Оригинал", "Горизонтальный", "Вертикальный", " "]
+
+for i, ax in enumerate(axs.ravel()):
+    ax.set_title(titles[i])
+    ax.axis("off")
+
+plt.show()
