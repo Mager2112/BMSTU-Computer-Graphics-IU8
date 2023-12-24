@@ -19,4 +19,4 @@
 [6) Z Буфер](https://github.com/Mager2112/BMSTU-Computer-Graphics-IU8/tree/main/6%20Z%20Bufer)
 
 ## Освещённость
-[7) освещённость](https://github.com/Mager2112/BMSTU-Computer-Graphics-IU8/tree/main/7%20Light)
+[7) Освещённость](https://github.com/Mager2112/BMSTU-Computer-Graphics-IU8/tree/main/7%20Light)
