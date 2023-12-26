@@ -98,3 +98,5 @@ if __name__ == '__main__':
 		end = time.time()
 		im.save('CyrusBeck.png')
 		print(end-start)
+
+# РЕЗУЛЬТАТ: 0.040863037109375 для 500 прямых
